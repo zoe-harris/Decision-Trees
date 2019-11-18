@@ -1,6 +1,3 @@
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
-
-import java.io.*;
 import java.util.Vector;
 
 public class ApplyRules
