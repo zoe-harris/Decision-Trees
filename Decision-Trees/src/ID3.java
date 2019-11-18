@@ -349,7 +349,6 @@ public class ID3 {
             outputAttribute = { "Value1", "Value2", ..  }
         The second form is printed if the node cannot be decomposed any further into an homogenous set
     */
-
     public void printTree(TreeNode node, String tab) throws FileNotFoundException {
 
         int outputattr = numAttributes-1;
@@ -378,8 +377,6 @@ public class ID3 {
             if (i != numvalues-1) System.out.print(tab +  "} else ");
             else System.out.println(tab +  "}");
         }
-
-
     }
 
     /*  This function creates the decision tree and prints it in the form of rules on the console */
