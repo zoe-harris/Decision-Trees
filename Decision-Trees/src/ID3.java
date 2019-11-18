@@ -356,7 +356,8 @@ public class ID3 {
         if (node.children == null) {
             int []values = getAllValues(node.data, outputattr );
             if (values.length == 1) {
-                System.out.println(tab + "\t" + attributeNames[outputattr] + " = \"" + domains[outputattr].elementAt(values[0]) + "\";");
+                System.out.println(tab + "\t" + attributeNames[outputattr] + " = \"" +
+                        domains[outputattr].elementAt(values[0]) + "\";");
                 return;
             }
             System.out.print(tab + "\t" + attributeNames[outputattr] + " = {");
@@ -380,8 +381,7 @@ public class ID3 {
 
     }
 
-    /*  This function creates the decision tree and prints it in the form of rules on the console
-     */
+    /*  This function creates the decision tree and prints it in the form of rules on the console */
     public void createDecisionTree() {
         decomposeNode(root);
         printTree(root, "");
@@ -389,7 +389,8 @@ public class ID3 {
 
 
     /* Here is the definition of the main function */
-    public static void main(String[] args) /* throws Exception */ {
+    /*
+    public static void main(String[] args) throws Exception  {
 
 
         //  		int num = args.length;
@@ -417,6 +418,7 @@ public class ID3 {
 
 
     }
+    */
     /*  End of the main function  */
 
 }
