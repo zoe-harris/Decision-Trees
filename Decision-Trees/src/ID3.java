@@ -349,7 +349,7 @@ public class ID3 {
             outputAttribute = { "Value1", "Value2", ..  }
         The second form is printed if the node cannot be decomposed any further into an homogenous set
     */
-    public void printTree(TreeNode node, String tab) {
+    public void printTree(TreeNode node, String tab) throws FileNotFoundException {
 
         int outputattr = numAttributes-1;
 
@@ -382,43 +382,20 @@ public class ID3 {
     }
 
     /*  This function creates the decision tree and prints it in the form of rules on the console */
-    public void createDecisionTree() {
+    /***********************************************************************************************
+     *      Program has been altered here to write output of printTree() to file InducedTree.txt
+     **********************************************************************************************/
+    public void createDecisionTree() throws FileNotFoundException {
+
         decomposeNode(root);
+
+        PrintStream o = new PrintStream(new File("InducedTree.txt"));
+        System.setOut(o);
+
         printTree(root, "");
     }
 
-
-    /* Here is the definition of the main function */
-    /*
-    public static void main(String[] args) throws Exception  {
-
-
-        //  		int num = args.length;
-        //	if (num != 1) {
-        //  			System.out.println("You need to specify the name of the datafile at the command line " );
-        //		return;
-        //	}
-
-
-        ID3 me = new ID3();
-
-        long startTime = System.currentTimeMillis();	//  To print the time taken to process the data
-
-//		int status = me.readData("ID3sampledata.txt");
-        int status = me.readData("train-house-votes-1984.txt");
-        if (status <= 0) return;
-
-        me.createDecisionTree();
-
-
-        long endTime = System.currentTimeMillis();
-        long totalTime = (endTime-startTime)/1000;
-
-        System.out.println( totalTime + " Seconds");
-
-
-    }
-    */
-    /*  End of the main function  */
-
+    /***********************************************************************************************
+     *      Program has been altered here to move the main method to its own separate class
+     **********************************************************************************************/
 }
