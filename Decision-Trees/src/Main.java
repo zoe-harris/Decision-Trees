@@ -16,15 +16,6 @@ public class Main
 
         me.createDecisionTree();
 
-        /*
-        // Creating a File object that represents the disk file.
-        PrintStream o = new PrintStream(new File("InducedTree.txt"));
-
-        // Assign o to output stream
-        System.setOut(o);
-        System.out.println("This will be written to the text file");
-        */
-
         // 3. Next, write a Java program that implements the rules of the decision tree produced by ID3.
 
         // 4. Next, apply your program to the TRAINING SET to make sure it correctly categorizes
