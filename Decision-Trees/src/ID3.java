@@ -381,7 +381,7 @@ public class ID3 {
 
     /*  This function creates the decision tree and prints it in the form of rules on the console */
     /***********************************************************************************************
-     *      Program has been altered here to write output of printTree() to file InducedTree.txt
+     *      Program has been altered here to write output of printTree() to file InducedTree.txt   *
      **********************************************************************************************/
     public void createDecisionTree() throws FileNotFoundException {
 
@@ -391,9 +391,10 @@ public class ID3 {
         System.setOut(o);
 
         printTree(root, "");
+
     }
 
     /***********************************************************************************************
-     *      Program has been altered here to move the main method to its own separate class
+     *      Program has been altered here to move the main method to its own separate class        *
      **********************************************************************************************/
 }
