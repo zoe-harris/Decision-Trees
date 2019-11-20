@@ -1,35 +1,40 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.Vector;
 
 public class ApplyRules
 {
 
-    private Vector<Representative> reps = new Vector<Representative>();
+    private static Vector<Representative> representatives = new Vector<Representative>();
 
     public static class Representative
     {
         // decision tree attributes
-        boolean physicianFeeFreeze = true; // 3rd char
-        boolean adoptBudgetResolution = true; // 2nd char
-        boolean antiSatelliteTestBan = true; // 6th char
+        String physicianFeeFreeze;
+        String adoptBudgetResolution;
+        String antiSatelliteTestBan;
+        String[] votingRecord;
 
-        String party; // party as noted in text file, 16th word
-        String classified; // party as classified by decision tree rules
+        // party noted in text file
+        String party;
 
-        Representative(String phys, String budgetRes, String antiSat, String party)
+        // party according to decision tree rules
+        String classifiedParty;
+
+        Representative(String[] votingRecord, String party)
         {
-            if (phys.equals("n")) physicianFeeFreeze = false;
-            if (budgetRes.equals("n")) adoptBudgetResolution = false;
-            if (antiSat.equals("n")) antiSatelliteTestBan = false;
+            this.votingRecord = votingRecord;
+            this.physicianFeeFreeze = votingRecord[3];
+            this.adoptBudgetResolution = votingRecord[2];
+            this.antiSatelliteTestBan = votingRecord[6];
             this.party = party;
         }
 
     }
 
-    void getReps(String fileName) throws IOException {
+    void getRepresentatives(String fileName) throws IOException {
 
         // open file + make buffer
-        //File file = new File(fileName);
         BufferedReader br = new BufferedReader(new FileReader(fileName));
 
         // read + throw away first two lines
@@ -40,23 +45,70 @@ public class ApplyRules
         String str;
         while ((str = br.readLine()) != null)
         {
+            // split line read into array of String tokens
             String[] tokens = str.split(" ");
-            Representative r = new Representative(tokens[3], tokens[2], tokens[6], tokens[16]);
-            reps.add(r);
+            // extract party and voting record from tokens
+            String party = tokens[16];
+            String[] votingRecord = new String[16];
+            System.arraycopy(tokens, 0, votingRecord, 0, 16);
+            // make new representative and add to list
+            Representative r = new Representative(votingRecord, party);
+            representatives.add(r);
         }
 
+        // close buffer
         br.close();
 
     }
 
-    public static void classify()
+    void classify()
     {
-        // classify representatives as "democrat" or "republican"
+        for (Representative r : representatives)
+        {
+            if (r.physicianFeeFreeze.equals("n"))
+            {
+                r.classifiedParty = "democrat";
+            } else if (r.physicianFeeFreeze.equals("y")) {
+                if (r.adoptBudgetResolution.equals("y"))
+                {
+                    if (r.antiSatelliteTestBan.equals("n"))
+                    {
+                        r.classifiedParty = "democrat";
+                    } else if (r.antiSatelliteTestBan.equals("y"))
+                    {
+                        r.classifiedParty = "republican";
+                    }
+                } else if (r.adoptBudgetResolution.equals("n")) {
+                    r.classifiedParty = "republican";
+                }
+            }
+        }
     }
 
-    public static void percentageIncorrect()
+    void printRepresentatives()
     {
-        // display percentage of representatives incorrectly classified by tree rules
+        System.out.printf( "%-50s %-15s %-15s %n", "VOTING RECORD: ", "PARTY: ", "CATEGORIZED AS: ");
+        for (Representative r : representatives)
+        {
+            System.out.printf( "%-50s %-15s %-15s %n", Arrays.toString(r.votingRecord), r.party, r.classifiedParty);
+        }
+    }
+
+    public void percentageIncorrect()
+    {
+        double numIncorrect = 0.0;
+        System.out.println("--------------------------- INCORRECTLY CLASSIFIED --------------------------");
+        System.out.printf( "%-50s %-15s %-15s %n", "VOTING RECORD: ", "PARTY: ", "CATEGORIZED AS: ");
+
+        for (Representative r : representatives)
+        {
+            if (!r.classifiedParty.equals(r.party))
+            {
+                numIncorrect++;
+                System.out.printf( "%-50s %-15s %-15s %n", Arrays.toString(r.votingRecord), r.party, r.classifiedParty);
+            }
+        }
+        System.out.println("\nPERCENTAGE INCORRECT: " + (numIncorrect / representatives.size()) * 100 + "%");
     }
 
 }

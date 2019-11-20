@@ -380,16 +380,9 @@ public class ID3 {
     }
 
     /*  This function creates the decision tree and prints it in the form of rules on the console */
-    /***********************************************************************************************
-     *      Program has been altered here to write output of printTree() to file InducedTree.txt   *
-     **********************************************************************************************/
     public void createDecisionTree() throws FileNotFoundException {
 
         decomposeNode(root);
-
-        PrintStream o = new PrintStream(new File("InducedTree.txt"));
-        System.setOut(o);
-
         printTree(root, "");
 
     }
