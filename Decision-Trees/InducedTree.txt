@@ -1,0 +1,13 @@
+if( Physician-fee-freeze == "n") {
+		Party = "democrat";
+} else if( Physician-fee-freeze == "y") {
+	if( Adoption-of-the-budget-resolution == "y") {
+		if( Anti-satellite-test-ban == "n") {
+				Party = "democrat";
+		} else 		if( Anti-satellite-test-ban == "y") {
+				Party = "republican";
+		}
+	} else 	if( Adoption-of-the-budget-resolution == "n") {
+			Party = "republican";
+	}
+}

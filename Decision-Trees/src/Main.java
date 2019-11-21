@@ -1,30 +1,41 @@
 import java.io.*;
+import java.util.Scanner;
 
 public class Main
 {
 
-    public static void main(String[] args) throws FileNotFoundException
+    public static void main(String[] args) throws IOException
     {
 
-        // 1. Run ID3.java on the TRAINING SET of examples to build a decision tree.
-        // 2. Save an electronic copy of the induced tree.
+        Scanner scnr = new Scanner(System.in);
+
+        System.out.print("Enter path to text file containing training set: ");
+        String trainingSet = scnr.next();
+
+        System.out.print("Enter path to text file containing test set: ");
+        String testingSet = scnr.next();
 
         ID3 me = new ID3();
 
-        int status = me.readData("C:\\Users\\zharr\\Desktop\\train-house-votes-1984.txt");
+        int status = me.readData(trainingSet);
         if (status <= 0) return;
 
+        System.out.println("\n--------------------- DECISION TREE RULES ---------------------\n");
         me.createDecisionTree();
 
-        // 3. Next, write a Java program that implements the rules of the decision tree produced by ID3.
+        ApplyRules training = new ApplyRules();
+        training.getRepresentatives(trainingSet);
+        training.classify();
 
-        // 4. Next, apply your program to the TRAINING SET to make sure it correctly categorizes
-        //      each representative in the set as Democrat or Republican.
+        System.out.println("\n------------------------ APPLY TREE RULES TO TRAINING SET -----------------------");
+        training.printRepresentatives();
 
-        // 5a. Run program on TESTING SET.  For each incorrectly classified example, display
-        //      entire voting record and the affiliated party.
+        ApplyRules test = new ApplyRules();
+        test.getRepresentatives(testingSet);
+        test.classify();
 
-        // 5b. After processing test data, display percentage of test set that was incorrectly classified.
+        System.out.println("\n------------------------ APPLY TREE RULES TO TEST SET -----------------------");
+        training.percentageIncorrect();
 
     }
 
