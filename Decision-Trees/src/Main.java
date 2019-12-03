@@ -31,9 +31,7 @@ public class Main
         // use decision tree rules to classify candidates
         training.classify();
         // print list of candidates with their classifications
-        // training.printRepresentatives();
-        // print percentage of candidates incorrectly classified
-        training.percentageIncorrect();
+        training.printRepresentatives();
 
         System.out.println("\n------------------------ APPLY TREE RULES TO TEST SET -----------------------");
 
