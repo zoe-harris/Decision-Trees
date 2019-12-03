@@ -10,10 +10,10 @@ public class Main
         Scanner scnr = new Scanner(System.in);
 
         System.out.print("Enter path to text file containing training set: ");
-        String trainingSet = scnr.next();
+        String trainingSet = scnr.nextLine();
 
         System.out.print("Enter path to text file containing test set: ");
-        String testingSet = scnr.next();
+        String testingSet = scnr.nextLine();
 
         ID3 me = new ID3();
 
@@ -23,19 +23,25 @@ public class Main
         System.out.println("\n--------------------- DECISION TREE RULES ---------------------\n");
         me.createDecisionTree();
 
-        ApplyRules training = new ApplyRules();
-        training.getRepresentatives(trainingSet);
-        training.classify();
-
         System.out.println("\n------------------------ APPLY TREE RULES TO TRAINING SET -----------------------");
+
+        ApplyRules training = new ApplyRules();
+        // retrieve representative data from training set
+        training.getRepresentatives(trainingSet);
+        // use decision tree rules to classify candidates
+        training.classify();
+        // print list of candidates with their classifications
         training.printRepresentatives();
 
-        ApplyRules test = new ApplyRules();
-        test.getRepresentatives(testingSet);
-        test.classify();
-
         System.out.println("\n------------------------ APPLY TREE RULES TO TEST SET -----------------------");
-        training.percentageIncorrect();
+
+        ApplyRules test = new ApplyRules();
+        // retrieve representative data from test set
+        test.getRepresentatives(testingSet);
+        // use decision tree rules to classify candidates
+        test.classify();
+        // print percentage of candidates incorrectly classified
+        test.percentageIncorrect();
 
     }
 

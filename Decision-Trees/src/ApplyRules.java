@@ -2,12 +2,12 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ApplyRules
+class ApplyRules
 {
 
-    private static Vector<Representative> representatives = new Vector<Representative>();
+    private Vector<Representative> representatives = new Vector<Representative>();
 
-    public static class Representative
+    public class Representative
     {
         // decision tree attributes
         String physicianFeeFreeze;
@@ -53,7 +53,7 @@ public class ApplyRules
             System.arraycopy(tokens, 0, votingRecord, 0, 16);
             // make new representative and add to list
             Representative r = new Representative(votingRecord, party);
-            representatives.add(r);
+            this.representatives.add(r);
         }
 
         // close buffer
@@ -63,7 +63,7 @@ public class ApplyRules
 
     void classify()
     {
-        for (Representative r : representatives)
+        for (Representative r : this.representatives)
         {
             if (r.physicianFeeFreeze.equals("n"))
             {
@@ -88,19 +88,19 @@ public class ApplyRules
     void printRepresentatives()
     {
         System.out.printf( "%-50s %-15s %-15s %n", "VOTING RECORD: ", "PARTY: ", "CATEGORIZED AS: ");
-        for (Representative r : representatives)
+        for (Representative r : this.representatives)
         {
             System.out.printf( "%-50s %-15s %-15s %n", Arrays.toString(r.votingRecord), r.party, r.classifiedParty);
         }
     }
 
-    public void percentageIncorrect()
+    void percentageIncorrect()
     {
         double numIncorrect = 0.0;
         System.out.println("--------------------------- INCORRECTLY CLASSIFIED --------------------------");
         System.out.printf( "%-50s %-15s %-15s %n", "VOTING RECORD: ", "PARTY: ", "CATEGORIZED AS: ");
 
-        for (Representative r : representatives)
+        for (Representative r : this.representatives)
         {
             if (!r.classifiedParty.equals(r.party))
             {
